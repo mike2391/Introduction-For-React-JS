@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Reach JS</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="id"></div>
+    <div id="vanillaJS"></div>
+    <div id="NoJSX"></div>
+    <div id="WithJSX"></div>
+
+    <!-- don't forget to use type="text/babel" -->
+    <!-- babel is a transpiler that converts JSX to vanilla JS -->
+    <script type="text/babel">
+        const container = document.getElementById("id");
+
+        const content = ReactDOM.createRoot(container);
+
+        content.render(
+            <>
+                <h1>
+                    Welcome to Reach JS
+                </h1>
+                <p>React JS is easy!</p>
+
+                <p>
+                    we can't place multiple html tags at the same level (siblings)
+                </p>
+
+                <p>
+                    we use "fragment" to wrap 2 html tags in React js (parent to node(s))
+                </p>
+                <a href="https://react.dev/reference/react/Fragment#returning-multiple-elements">click here to read more about tag fragment</a>
+            </>
+        );
+    </script>
+
+    <!-- vanilla JS -->
+    <script type="text/javascript">
+        const content2 = document.getElementById("vanillaJS");
+
+        content2.innerHTML = "<br> <h2>This content was made using Vanilla JS</h2>";
+    </script>
+
+    <!-- Using React but without JSX -->
+    <script type="text/javascript">
+        const withoutJSX = document.getElementById("NoJSX");
+
+        const contentNoJSX = React.createElement("h3", null, "this was made using react but without JSX");
+
+        const root = ReactDOM.createRoot(withoutJSX);
+        root.render(contentNoJSX);
+    </script>
+
+    <!-- Using React with JSX -->
+    <script type="text/babel">
+        const withJSX = document.getElementById("WithJSX");
+
+        const contentWithJSX = <h3>this was made using react with JSX</h3>;
+
+        const root2 = ReactDOM.createRoot(withJSX);
+        root2.render(contentWithJSX);
+    </script>
+</body>
+
+</html>
