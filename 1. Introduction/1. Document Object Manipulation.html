@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document Object Manipulation</title>
+</head>
+
+<body>
+    <!-- Document Object Manipulation -->
+    <!-- We can manipulate exsiting html element(s) using javascript by add "id" to that element-->
+    <!-- This is a fundamental part of react.js ⚛ -->
+
+    <div id="example"></div>
+    <div id="example2"></div>
+
+    <script type="text/javascript">
+
+        // get the element with id = "example"
+        const example = document.getElementById("example");
+
+        // create a new element with tagname = "p" -> in html it will be <p></p>
+        const addElement = document.createElement("p");
+
+        // add text to the new element "p"
+        addElement.textContent = "This is a new paragraph";
+
+        // append the new element "p" to the element with id = "example"
+        example.appendChild(addElement);
+
+
+        // we can use another method to insert a new element to the existing html element
+        // get the html element with class = "example2"
+        const example2 = document.getElementById("example2");
+
+        // create a new element with tagname H1 -> in html it will be <h1></h1>
+        const addElement2 = document.createElement("h1");
+
+        // create a text node for the new element "h1"
+        const textnode = document.createTextNode("This is a new heading");
+
+        // append the text node to the new element "h1"
+        addElement2.appendChild(textnode);
+
+        // append the new element "h1" to the element with class = "example2"
+        example2.appendChild(addElement2);
+
+    </script>
+</body>
+
+</html>
