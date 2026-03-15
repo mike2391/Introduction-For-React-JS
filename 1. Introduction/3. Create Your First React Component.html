@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <div id="component"></div>
+
+    <script type="text/babel">
+        const component = document.getElementById('component');
+
+        const root = ReactDOM.createRoot(component);
+
+        // React Component MUST start with capital alphabeth, while HTML must start with lowercase.
+        // the purpose is to help developer identify React component(s) in the middle of many HTML elements. 👍
+        function Header() {
+            return (<h1>Congrats, You Just made your first element using React ⚛️</h1>);
+        }
+
+        root.render(<Header />);
+    </script>
+</body>
+
+</html>
