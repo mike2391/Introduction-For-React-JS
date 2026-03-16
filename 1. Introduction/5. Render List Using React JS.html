@@ -28,6 +28,8 @@
                     <h2>You just rendered a list using ReactJS ⚛️!!</h2>
                     <ul>
                         {
+                            // The list is will still appear even without 'key' attribute
+                            // But it would be more advisable to use 'key'
                             userList.map((user) => <li key={user}>{user}</li>)
                         }
                     </ul>

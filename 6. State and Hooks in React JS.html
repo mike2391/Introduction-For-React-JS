@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="count"></div>
+
+    <script type="text/babel">
+        const container = ReactDOM.createRoot(document.getElementById('count'));
+
+        // State is a data that can change over time
+        // State is used to store data that might change over time
+
+        // Hooks are functions that let you hook into React features
+        // Hooks basically are function call
+        // ex: setState, useState is one example of the hooks
+
+        function ExampleHook() {
+
+            // "count" is a state
+            // "setCount" is a setter, to update the state after the hook is called
+            // The "useState" hook is called and sets the default value to 0 -> setCount as a "setter" change count from undefined to 0
+            // now count = 0
+
+            // if you want to update the state, you need to use the setter
+
+            // generally, programmer will use "set+[state name]" for setter to update the state (ex:count -> setCount)
+            // you can use any name you want for your setter (ex: [count, plusOne]), but it's not recommend and not the best practice for React
+            const [count, setCount] = React.useState(0);
+
+
+            function Increment() {
+                // for now we use set updater function for simple example
+
+                // we set the setter value to count + 1 and return it back to state count and let React do the magic!
+                setCount(count + 1);
+            }
+
+            return (
+                <>
+                    <button onClick={Increment}>Tap for Increment</button>
+                    <div>Count: ({count})</div>
+                </>
+            )
+        }
+
+        container.render(<ExampleHook />);
+    </script>
+</body>
+
+</html>
