@@ -28,6 +28,7 @@
         const content = ReactDOM.createRoot(container);
 
         content.render(
+            // <> </> is called "fragment"
             <>
                 <h1>
                     Welcome to Reach JS
@@ -50,6 +51,7 @@
     <script type="text/javascript">
         const content2 = document.getElementById("vanillaJS");
 
+        // this script will be inject to the element with id = "vanillaJS" as "textContent"
         content2.innerHTML = "<br> <h2>This content was made using Vanilla JS</h2>";
     </script>
 
