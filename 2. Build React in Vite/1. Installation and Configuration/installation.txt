@@ -1,0 +1,30 @@
+In this tutorial we will use Vite for React framework
+In this case i use pnpm for vite installation
+
+Prepare this stuff before you start your installation
+1. Node.JS
+2. PNPM
+
+step by step installation
+1. Install Node.JS from (https://nodejs.org/en/download).
+2. Open Command Prompt.
+3. Copy and run this command -> (npm i -g pnpm).
+
+step by step create Vite React Project
+1. Copy and run this command -> (pnpm create vite).
+2. Type your project name (default project name is vite-project).
+3. For package name, no need to change it, just skip it.
+4. Select "React" as a Framework.
+5. Choose "JavaScript" for the variant.
+6. "Install with pnpm?" just select "Yes".
+7a. You just made your first Vite React Project, the project run automatically.
+7b. If your project don't have folder with name "node_modules", type this to command prompt -> (pnpm install).
+8. Run your project by run this command to your command prompt -> (pnpm run dev).
+
+*Tips: Make sure you already set your command prompt to the right directory.
+
+Quick Guide about Vite
+1. In this project, you can see if you have HTML file with name "index.html".
+2. You can find your React file in folder "src".
+3. So, if you want to make your component, save it in folder "src".
+4. Default files you have since u succeed made your Vite project are "main.jsx" & "App.jsx" + 2 css files.
