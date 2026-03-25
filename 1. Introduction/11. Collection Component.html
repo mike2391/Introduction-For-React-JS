@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="collection1"></div>
+
+    <script type="text/babel">
+        const root1 = ReactDOM.createRoot(document.getElementById('collection1'));
+
+        const player = [
+            {
+                id: "1",
+                name: 'Martin',
+                age: 25
+            },
+            {
+                id: "2",
+                name: 'John',
+                age: 30
+            },
+            {
+                id: "3",
+                name: 'Jane',
+                age: 35
+            }
+        ]
+
+        function Container() {
+            const players = player.map((player) => (
+                // <li>player: {player.name} | age: {player.age}</li>
+                // or
+                <ListElement key={player.id} {...player} />
+
+                // I suggest you yo add key={player.id} in ListElement. In default React will ask you to add key={index} in ListElement
+                // the element will be appear anyway even if you don't add key (not recommended)🥱
+            ));
+
+            // Tips 💡:
+            // If you use curly brackets "map(...) => {}" for map, make sure you use "return" to return the JSX
+            // If you use normal brackets "map(...) => ()", for map, you can directly return the JSX
+
+            return (
+                <>
+                    <h1>List of Players</h1>
+                    <p>*We create players data object in array and render it by store it into variable and we use map function to show the data</p>
+                    <ul>
+                        {players}
+                    </ul>
+                </>
+            )
+        }
+
+        function ListElement({ name, age }) {
+            return <li>player: {name} | age: {age}</li>
+        }
+
+        function ListPlayer() {
+            return (
+                <>
+                    <br />
+                    <h1>List of Players too</h1>
+                    <p>*You can also use map function directly inside the JSX to show the data</p>
+                    <ul>
+                        {player.map((player) => {
+                            return <li key={player.id}>player: {player.name} | age: {player.age}</li>
+                        })}
+                    </ul>
+                </>
+            )
+        }
+
+        root1.render(
+            <>
+                <Container />
+                <ListPlayer />
+            </>
+        )
+    </script>
+</body>
+
+</html>
