@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="spreadSyntax"></div>
+
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('spreadSyntax'));
+
+        function Content() {
+
+            // We make our object
+            const driver = {
+                name: 'John Doe',
+                age: 30
+            }
+
+            // We transfer our object without manually declaring each attribute
+            return <Header {...driver} />
+        }
+
+        // Add object attribute as an argument(s)
+        // Make sure your attribute name is same as your object attribute name
+        function Header({ name, age }) {
+            return (
+                <>
+                    <h1>This is an example of Spread Syntax</h1>
+                    <p>Hello, {name}, your age is {age}</p>
+                </>
+            )
+        }
+
+        root.render(<Content />);
+    </script>
+</body>
+
+</html>
