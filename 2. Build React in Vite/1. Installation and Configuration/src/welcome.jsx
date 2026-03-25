@@ -9,9 +9,9 @@ function Welcome() {
     );
 }
 
-// 2 ways to export component
-// type export default [compoenent name] on the bottom of your code
-// add export default before you type your function
+// 2 ways to export component:
+// 1. type export default [compoenent name] on the bottom of your code
+// 2. add export default before you type your function
 
 // Type 1
 export default Welcome

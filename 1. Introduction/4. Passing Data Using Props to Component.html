@@ -23,14 +23,14 @@
 
         const root = ReactDOM.createRoot(component);
 
+        // make sure your attribute name is same as your props name
+        // example: {props.title} then you need to add attribute with name title: <Header title="Hello World"/>
         function Header(props) {
             return (<h1>You Just passing data using props to component: {props.title}</h1>)
         }
 
         function App() {
             return (
-                // make sure your attribute name is same as your props name
-                // example: {props.title} then you need to add attribute with name title: <Header title="Hello World"/>
 
                 <>
                     <Header title="Hello World" />
@@ -64,7 +64,7 @@
     <!-- props default form is an object, so you don't need to add {} -->
     <!-- it will be a different thing if you add {}. basically you declare static object -->
     <!-- if you don't add {} then it will be a dynamic object -->
-     
+
 
     <!-- dynamic object example -->
     <!-- <Paragraph name="John Doe" position="Web Developer" /> = { name: "John Doe", position: "Web Developer" } -->
@@ -74,9 +74,9 @@
     <!-- static object example -->
     <!-- <Paragraph name="John Doe" position="Web Developer" /> = { name: "John Doe", position: "Web Developer" } -->
     <!-- function Paragraph({ name, position, title}) = inside props is { name: "John Doe", position: "Web Developer", title: undefined} -->
-    
+
     <!-- or  -->
-    
+
     <!-- <Paragraph name = "John Doe" position = "Web Developer" title = "Web Developer" /> = { name: "John Doe", position: "Web Developer", title: "Web Developer" } -->
     <!-- function Paragraph({name, position,}) = inside props is only { name: "John Doe", position: "Web Developer"} -->
 </body>

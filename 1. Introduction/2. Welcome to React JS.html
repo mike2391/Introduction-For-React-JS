@@ -40,7 +40,7 @@
                 </p>
 
                 <p>
-                    we use "fragment" to wrap 2 html tags in React js (parent to node(s))
+                    we use "fragment" or any other html tag to wrap 2 html tags in React js (parent to node(s))
                 </p>
                 <a href="https://react.dev/reference/react/Fragment#returning-multiple-elements">click here to read more about tag fragment</a>
             </>
@@ -55,6 +55,7 @@
         content2.innerHTML = "<br> <h2>This content was made using Vanilla JS</h2>";
     </script>
 
+
     <!-- Using React but without JSX -->
     <script type="text/javascript">
         const withoutJSX = document.getElementById("NoJSX");
@@ -65,11 +66,12 @@
         root.render(contentNoJSX);
     </script>
 
+
     <!-- Using React with JSX -->
     <script type="text/babel">
         const withJSX = document.getElementById("WithJSX");
 
-        const contentWithJSX = <h3>this was made using react with JSX</h3>;
+        const contentWithJSX = <h3>This component has been created with React with JSX</h3>;
 
         const root2 = ReactDOM.createRoot(withJSX);
         root2.render(contentWithJSX);

@@ -26,9 +26,20 @@
 
         // React Component MUST start with capital alphabeth, while HTML must start with lowercase.
         // the purpose is to help developer identify React component(s) in the middle of many HTML elements. 👍
-        function Header() {
-            return (<h1>Congrats, You Just made your first element using React ⚛️</h1>);
+
+        //we add a simple style to our component
+        const style = {
+            backgroundColor: 'black',
+            color: 'white',
+            padding: '1rem',
         }
+
+        function Header() {
+            return (<h1 style={style}>Congrats, You Just made your first element using React ⚛️</h1>);
+        }
+
+        // You can also write your style directly in your JSX code
+        // <h1 style={{ backgroundColor: 'black', color: 'white', padding: '1rem' }}>
 
         root.render(<Header />);
     </script>
