@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="conditional"></div>
+
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('conditional'));
+
+        function TaskList({ task, isDone, isDeleted }) {
+            if (isDeleted) {
+                return null
+            }
+
+            if (isDone) {
+                return (
+                    <li><del>{task}</del></li>
+                )
+            } else {
+                return (
+                    <li>{task}</li>
+                )
+            }
+        }
+
+        function Task() {
+            return (
+                <ul>
+                    <TaskList task="Learn JavaScript" isDone={true} />
+                    <TaskList task="Learn React" isDone={true} />
+                    <TaskList task="Get a job" isDone={false} />
+
+                    {/* One Example for null component */}
+                    <TaskList task="Learn TypeScript" isDone={false} isDeleted={true} />
+                </ul>
+            )
+        }
+
+        root.render(<Task />);
+    </script>
+</body>
+
+</html>
