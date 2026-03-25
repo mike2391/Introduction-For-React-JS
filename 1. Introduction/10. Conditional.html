@@ -22,20 +22,22 @@
         function TaskList({ task, isDone, isDeleted }) {
             if (isDeleted) {
                 return null
-            }
-
-            if (isDone) {
-                return (
-                    <li><del>{task}</del></li>
-                )
             } else {
-                return (
-                    <li>{task}</li>
-                )
+                if (isDone) {
+                    return (
+                        <li><del>{task}</del> {isDone && '✅'}</li>
+                    )
+                } else {
+                    return (
+                        <li>{task}</li>
+                    )
+                }
             }
 
             // We can simplify it by using ternary operator
             // return isDone ? <li><del>{task}</del></li> : <li>{task}</li>
+
+            // {isDOne && '✅'} -> it's Logical AND
         }
 
         function Task() {
