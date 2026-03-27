@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="notPureFunction"></div>
+    <div id="pureFunction"></div>
+
+    <script type="text/babel">
+        const root1 = ReactDOM.createRoot(document.getElementById('notPureFunction'));
+        const root2 = ReactDOM.createRoot(document.getElementById('pureFunction'));
+
+        // This is an example of an impure function that produces impure components.
+        // This impure function will produce different results when it is called multiple times
+        // This will make your component produce inconsistent and unpredictable results
+        let count = 1;
+        function NotPureComponent({ text }) {
+            count++;
+
+            return (
+                <tr>
+                    <td>{count}</td>
+                    <td>{text}</td>
+                </tr>
+            )
+        }
+
+        function PureComponent({ id, text }) {
+            return (
+                <tr>
+                    <td>{id}</td>
+                    <td>{text}</td>
+                </tr>
+            )
+        }
+
+        function Container() {
+            return (
+                <>
+                    <h1>Not Pure Component</h1>
+                    <table border="1">
+                        <tbody>
+                            <NotPureComponent text='one' />
+                            <NotPureComponent text='two' />
+                            <NotPureComponent text='three' />
+                        </tbody>
+                    </table>
+
+                    <br />
+
+                    <h1>Pure Component</h1>
+                    <table border="1">
+                        <tbody>
+                            <PureComponent id={1} text='one' />
+                            <PureComponent id={2} text='two' />
+                            <PureComponent id={3} text='three' />
+                        </tbody>
+                    </table>
+                </>
+            )
+        }
+
+        root1.render(
+            <Container />
+        );
+    </script>
+</body>
+
+</html>
