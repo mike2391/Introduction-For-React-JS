@@ -14,10 +14,41 @@
 </head>
 
 <body>
-    <div id="count"></div>
+    <div id="countWithoutState"></div>
+    <div id="countUsingState"></div>
 
     <script type="text/babel">
-        const container = ReactDOM.createRoot(document.getElementById('count'));
+        const root = ReactDOM.createRoot(document.getElementById('countWithoutState'));
+
+        function CountWithoutState() {
+            let countNoState = 0;
+
+            function handleIncrement() {
+                // this function will not work because we are not using state to store the count value 
+                // The variable value will always be 0 and it will not change when we click the button
+                // because the variable is re-initialized to 0 every time the component is rendered
+                // React will re-render the component every time the state is updated.
+                // React will not re-render the component when a variable is updated without using state
+                countNoState++;
+
+                // you will see the count value in the console.,
+                // But it will not be updated in the UI because we are not using state to store the count value
+                console.log(countNoState);
+            }
+
+            return (
+                <>
+                    <button onClick={handleIncrement}>Increment Without State</button>
+                    <div>Count: {countNoState}</div>
+                </>
+            )
+        }
+
+        root.render(<CountWithoutState />)
+    </script>
+
+    <script type="text/babel">
+        const container = ReactDOM.createRoot(document.getElementById('countUsingState'));
 
         // State is a data that can change over time
         // State is used to store data that might change over time
@@ -40,7 +71,7 @@
             const [count, setCount] = React.useState(0);
 
 
-            function Increment() {
+            function handleIncrement2() {
                 // for now we use set updater function for simple example
 
                 // we set the setter value to count + 1 and return it back to state count and let React do the magic!
@@ -49,7 +80,8 @@
 
             return (
                 <>
-                    <button onClick={Increment}>Tap for Increment</button>
+                    <br />
+                    <button onClick={handleIncrement2}>Increment Using State</button>
                     <div>Count: ({count})</div>
                 </>
             )
