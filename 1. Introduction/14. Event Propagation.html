@@ -47,17 +47,35 @@
                 <div onClick={onClick} style={{ backgroundColor: "Yellow" }}>
                     <button onClick={(e) => {
                         e.stopPropagation();
+                        // You can use e.preventDefault() to prevent the default behavior of the event, but it will not stop the propagation of the event from the button to the div.
                         onClick();
                     }}>With Propagation</button>
                 </div>
             )
         }
 
+        
         function Container2() {
             return (
                 <>
                     <br />
                     <Toolbar onClick={() => alert('You just clicked the toolbar!')} />
+
+                    {/* you can also use the event handler as a prop to stop the propagation of the event from the button to the div. */}
+                    {/*
+                    <Toolbar2 onClick={(e) => {
+                        e.stopPropagation();
+                        alert('You just clicked the toolbar!');
+                    }} />
+
+                    //and the Toolbar2 Component will look like this:
+
+                    function Button({onSmash}) {
+                        return (
+                            <button onClick={onSmash}>Smash Me</button>
+                        )
+                    }
+                    */}
                 </>
             )
         }
