@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="snapshot"></div>
+
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('snapshot'));
+
+        function Snapshot() {
+            // Snapshot is talking about how React change the interface when the state is updated.
+            // When you update the state, React will re-render the component and update the interface with the new state value.
+            // React will batch the state updates together and only apply the last update to the state.
+
+            // snapshot = a picture/value of the state of the component at a specific point in time
+            const [count, setCount] = React.useState(0);
+
+            // Try to run your program, open console and click the button
+            // You will see the snapshot of the count value in the console every time you click the button.
+            // You will understand how the React Render works and how the state updates are batched together.
+            console.log("Snapshot -> count =", count);
+
+            function handleIncrement() {
+                setCount(count + 1);
+                // Snapshot -> count = 0
+                setCount(count + 1);
+                // Snapshot -> count is still = 0
+                setCount(count + 1);
+                // Snapshot -> count is still 0, Sherlock!
+
+                // The count value will be 1 instead of 3.
+                // It's because the state updates are batched together and only the last update will be get rendered.
+                // React will batch the state updates together and only apply the last update to the state.
+
+                // the count value will be 0 because React is not finished running the handleIncrement function.
+                // the count value will be updated after React finishes running the function and re-render the component.
+                console.log("count =", count);
+            }
+
+            function handleIncrementWithPrevState() {
+                setCount(prevCount => prevCount + 1);
+                setCount(prevCount => prevCount + 1);
+                setCount(prevCount => prevCount + 1);
+                // the count value will be 3 because we are using the previous state value to update the state.
+                // React will batch the state updates together and apply all the updates to the state.
+            }
+
+            return (
+                <div>
+                    <button onClick={handleIncrement}>Click Me</button>
+                    <button onClick={handleIncrementWithPrevState}>Click Me (With Prev State)</button>
+                    <div>Count: {count}</div>
+                </div>
+            )
+        }
+
+        root.render(<Snapshot />);
+    </script>
+</body>
+
+</html>
