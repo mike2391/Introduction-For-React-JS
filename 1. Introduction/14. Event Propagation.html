@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="noPropagation"></div>
+    <div id="withPropagation"></div>
+
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('noPropagation'));
+
+        // You will see the alert twice when you click the button because the click event will propagate from the button to the div.
+        function Toolbar2({ onClick }) {
+            return (
+                <div onClick={onClick} style={{ backgroundColor: "black" }}>
+                    <button onClick={onClick}>No Propagation</button>
+                </div>
+            )
+        }
+
+        function Container() {
+            return (
+                <Toolbar2 onClick={() => alert('You just clicked the toolbar!')} />
+            )
+        }
+
+        root.render(<Container />);
+    </script>
+
+    <script type="text/babel">
+        const root2 = ReactDOM.createRoot(document.getElementById('withPropagation'));
+
+        // You will see the alert only once when you click the button because the click event will not propagate from the button to the div.
+        function Toolbar({ onClick }) {
+            return (
+                <div onClick={onClick} style={{ backgroundColor: "Yellow" }}>
+                    <button onClick={(e) => {
+                        e.stopPropagation();
+                        onClick();
+                    }}>With Propagation</button>
+                </div>
+            )
+        }
+
+        function Container2() {
+            return (
+                <>
+                    <br />
+                    <Toolbar onClick={() => alert('You just clicked the toolbar!')} />
+                </>
+            )
+        }
+
+        root2.render(<Container2 />);
+    </script>
+</body>
+
+</html>
