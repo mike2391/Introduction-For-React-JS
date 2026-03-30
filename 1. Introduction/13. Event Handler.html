@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="exampleEventHandler"></div>
+    <div id="eventHandlerAsProps"></div>
+
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('exampleEventHandler'));
+
+        // for the name of the function, you can use any name you want
+        // but it is a common convention to use the prefix "handle" followed by the name of the event.
+        // For example, if you want to handle a click event, you can name your event handler "handleClick".
+        // This convention helps to make your code more readable and easier to understand.
+        function handleAlert() {
+            alert('Hello World!');
+        }
+
+        function ExampleEventHandler() {
+            return (
+                // react event handlers name are similar with event handler name in vanilla JS but with camelCase instead of lowercase.
+                // for example, the click event handler in vanilla JS is "onclick" but in react it is "onClick".
+                <button onClick={handleAlert}>Click Me</button>
+            )
+        }
+
+        root.render(<ExampleEventHandler />);
+    </script>
+
+    <script type="text/babel">
+        const root2 = ReactDOM.createRoot(document.getElementById('eventHandlerAsProps'));
+
+        function Button({ onSmash }) {
+            return (
+                <button onClick={onSmash}>Smash Me</button>
+            )
+        }
+
+        function Container() {
+            return (
+                <>
+                    <br />
+                    <Button onSmash={() => alert('You just used an event handler as a prop!')} />
+                </>
+            )
+        }
+
+        root2.render(<Container />);
+    </script>
+</body>
+
+</html>
