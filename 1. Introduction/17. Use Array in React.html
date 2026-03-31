@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="array"></div>
+
+    <!-- 
+    Before we jump to the code, you need to know the concept of Array in ReactJS ⚛️
+
+    in jS:
+    Add:
+        -push() to add an element to the end of the array
+        -unshift() to add an element to the beginning of the array
+    
+    Remove:
+        -pop() to remove an element from the end of the array
+        -shift() to remove an element from the beginning of the array
+        -splice() to remove an element from the middle of the array
+
+    Modify:
+        -splice() to modify an element in the array
+        -array[index] = ...  to modify an element in the array
+
+    Sort:
+        -sort() to sort the array
+        -reverse() to reverse the array
+
+
+    DON'T USE JS METHODS TO MODIFY THE STATE OF AN ARRAY IN REACTJS ⚛️
+    Because these methods will modify the original array and React will not be able to detect the change and re-render the component.
+
+
+    in ReactJS ⚛️:
+    Add:
+    -concat() to add an element to the array
+    -[...arr] -> spread operator to add an element to the array
+
+    Remove:
+    -filter() to remove an element from the array with specific condition
+    -slice() to remove an element from the array with specific index
+
+    Modify:
+    -map() to modify an element in the array with specific condition
+
+    Sort;
+    -Just make a copy of the array and use sort() or reverse() to sort or reverse the array
+    -->
+    <script type="text/babel">
+
+        function Task() {
+            const [item, setItem] = React.useState("");
+            const [items, setItems] = React.useState([]);
+
+            function handleChange(e) {
+                setItem(e.target.value);
+            }
+
+            function handleClick(event) {
+                event.preventDefault();
+
+                setItems(prevItems => [...prevItems, item]);
+                setItem("");
+            }
+
+            return (
+                <>
+                    <h1>Create Task</h1>
+                    <form>
+                        <input value={item} onChange={handleChange} />
+                        <button onClick={handleClick}>Add</button>
+                    </form>
+
+                    <br />
+                    <h1>TaskList</h1>
+                    <ul>
+                        {
+                            items.map((item, index) => <li key={index}>{item}</li>)
+                        }
+                    </ul>
+                </>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById('array')).render(
+            <Task />
+        );
+    </script>
+</body>
+
+</html>
