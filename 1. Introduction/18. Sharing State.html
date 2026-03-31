@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="sharingState"></div>
+
+    <script type="text/babel">
+
+        function TaskList({ items = [] }) {
+            return (
+                <>
+                    <h1>TaskList</h1>
+                    <ul>
+                        {
+                            items.map((item, index) => <li key={index}>{item}</li>)
+                        }
+                    </ul>
+                </>
+            )
+
+        }
+
+        function TaskForm({ onSubmit }) {
+            const [item, setItem] = React.useState("");
+
+            function handleChange(e) {
+                setItem(e.target.value);
+            }
+
+            function handleClick(e) {
+                e.preventDefault();
+                onSubmit(item);
+                setItem("");
+            }
+
+            return (
+                <>
+                    <h1>Create Task</h1>
+                    <form>
+                        <input value={item} onChange={handleChange} />
+                        <button onClick={handleClick}>Add</button>
+                    </form>
+                </>
+            )
+        }
+
+        function Task() {
+            const [items, setItems] = React.useState([]);
+
+            function handleOnSubmit(item) {
+                setItems(prevItems => [...prevItems, item]);
+            }
+
+            return (
+                <>
+                    <TaskForm onSubmit={handleOnSubmit} />
+                    <br />
+                    <TaskList items={items} />
+                </>
+            )
+        }
+
+
+
+        ReactDOM.createRoot(document.getElementById('sharingState')).render(
+            <Task />
+        );
+    </script>
+</body>
+
+</html>
