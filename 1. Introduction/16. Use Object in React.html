@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="Object"></div>
+
+    <script type="text/babel">
+
+        // Now we try to modify an object
+        const initialData = {
+            name: "",
+            message: ""
+        };
+
+        function ContactForm() {
+
+            const [contact, setContact] = React.useState(initialData);
+
+            function handleChangeName(event) {
+                // You can't modify the state directly, you have to create a new object and update the state with the new object.
+                // Basically you override the whole object with the new object.away
+                // [...objectName] is the spread operator, it will copy all the properties of the object to the new object.
+
+                // This is the correct way to update the state.
+                setContact(prevContact => ({
+                    ...prevContact,
+                    name: event.target.value
+                }));
+            }
+
+            function handleChangeMessage(event) {
+                setContact(prevContact => ({
+                    ...prevContact,
+                    message: event.target.value
+                }));
+            }
+
+            return (
+                <>
+                    <h1>Contact form 📝</h1>
+
+                    <form>
+                        <input type="text" placeholder="Name" onChange={handleChangeName} value={contact.name} />
+                        <br />
+                        <input type="text" placeholder="Message" onChange={handleChangeMessage} value={contact.message} />
+                    </form>
+
+                    <h1>Contact Detail</h1>
+                    <p>Name: {contact.name}</p>
+                    <p>Message: {contact.message}</p>
+                </>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById('Object')).render(
+            <ContactForm />
+        );
+    </script>
+
+    <!-- 
+    You can use 3rd party library named "Immer" to make it easier to update the state of an object.
+    Use "useImmer" to replace "useState"
+    Ref: https://immerjs.github.io/immer/ 
+    -->
+</body>
+
+</html>
