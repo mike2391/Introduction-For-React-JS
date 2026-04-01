@@ -28,3 +28,12 @@ Quick Guide about Vite
 2. You can find your React file in folder "src".
 3. So, if you want to make your component, save it in folder "src".
 4. Default files you have since u succeed made your Vite project are "main.jsx" & "App.jsx" + 2 css files.
+5. If you want to use different name of html file, you need to configure it in "vite.config.js" file by add this script:
+    build: {
+        rollupOptions: {
+        input: {
+            main: 'index.html',
+            // add your html file name here
+        },
+        },
+    }
