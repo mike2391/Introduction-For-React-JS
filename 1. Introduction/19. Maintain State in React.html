@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="State"></div>
+    <div id="State2"></div>
+
+    <!-- example 1 -->
+    <script type="text/babel">
+
+        function Counter() {
+            const [count, setCount] = React.useState(0);
+
+            function handleClick() {
+                setCount(count + 1);
+            }
+
+            return (
+                <>
+                    <h1>Counter</h1>
+                    <p>{count}</p>
+                    <button onClick={handleClick}>+</button>
+                </>
+            )
+        }
+
+        function Container() {
+            const [isShow, setIsShow] = React.useState(true);
+
+            function handleChange(e) {
+                setIsShow(e.target.checked);
+            }
+
+            return (
+                <>
+                    <Counter />
+                    {isShow && <Counter />}
+                    <input type="checkbox" checked={isShow} onChange={handleChange} /> show second counter
+                </>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById("State")).render(<Container />);
+
+        // You might realize if you click the checkbox, the counter will be reset to 0.
+        // This is because the Counter component is removed from the DOM and then added again, so the state is lost.
+        // Once the component is removed from the initial position, the state will be lost.
+    </script>
+
+    <!-- example 2 -->
+    <script type="text/babel">
+        function Counter2({ name }) {
+            const [count2, setCount2] = React.useState(0);
+
+            function handleClick2() {
+                setCount2(count2 + 1);
+            }
+
+            return (
+                <>
+                    <h1>Counter {name}</h1>
+                    <p>{count2}</p>
+                    <button onClick={handleClick2}>+</button>
+                </>
+            )
+        }
+
+        function Container2() {
+            const [isShow2, setIsShow2] = React.useState(true);
+
+            function handleChange2(e) {
+                setIsShow2(e.target.checked);
+            }
+
+            return (
+                <>
+                    {isShow2 ? <Counter2 name="john" /> : <Counter2 name="doe" />}
+                    <input type="checkbox" checked={isShow2} onChange={handleChange2} /> show second counter
+                </>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById("State2")).render(<Container2 />);
+
+        // Why the state is not lost?
+        // The state is not lost because the component is not removed from the DOM.
+        // The component is just updated with new props, so the state is preserved.
+        
+        // example 1:
+        // basically become like this:
+        // <>
+        //     <Counter />
+        //     <Counter />
+        // </>
+        // when you click the checkbox, it become like this:
+        // <>
+        //     <Counter />
+        //     <!-- Counter is removed from the DOM (gone/moved from the initial position) -->
+        // </>
+
+        // example 2:
+        // basically become like this:
+        // <>
+        //     <Counter2 name="john" />
+        // </>
+        // when you click the checkbox, it become like this:
+        // <>
+        //     <Counter2 name="doe" />
+        // </>
+        // *nothing is removed from the DOM (gone/moved from the initial position) | the state is preserved*
+    </script>
+</body>
+
+</html>
