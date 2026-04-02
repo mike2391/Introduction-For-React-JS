@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="context"></div>
+
+    <script type="text/babel">
+        const profileContext = React.createContext("");
+
+
+        function ProfileAddress() {
+            const profile = React.useContext(profileContext);
+
+            return (
+                <div>
+                    <h2>Address</h2>
+                    <p>{profile.address}</p>
+                </div>
+            )
+        }
+
+
+        function Profile() {
+            const profile = React.useContext(profileContext);
+
+            return (
+                <div>
+                    <h2>Name</h2>
+                    <p>{profile.name}</p>
+                    <ProfileAddress />
+                </div>
+            )
+        }
+
+
+        function ProfileForm({ name, setName }) {
+            function handleChange(e) {
+                setName(e.target.value);
+            }
+
+            return (
+                <>
+                    <h2>Profile Form</h2>
+                    <input value={name} onChange={handleChange} type="text" />
+                </>
+            )
+        }
+
+
+        function ProfileApp() {
+            const [name, setName] = React.useState("Michael");
+
+            return (
+                <>
+                    <profileContext.Provider value={{ name: name, address: "123 Main St" }}>
+                        <ProfileForm name={name} setName={setName} />
+                        <Profile />
+                    </profileContext.Provider>
+                </>
+            )
+        }
+
+        // Context in React is a way to pass data through the component tree without having to pass props down manually at every level.
+        // You can see if data address is needed in ProfileAddress component.
+        // But before we reach ProfileAddress, we have to pass it through Profile component.
+        // Instead of we do "props drilling" we can use Context to pass data directly to the component that needs it using createContext.
+
+        ReactDOM.createRoot(document.getElementById('context')).render(
+            <ProfileApp />
+        );
+    </script>
+</body>
+
+</html>
