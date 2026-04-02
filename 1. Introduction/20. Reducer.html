@@ -81,7 +81,6 @@
 
 
         function NoteList({ notes, onChange, onDelete }) {
-
             return (
                 <ul>
                     {notes.map(note => (
@@ -93,34 +92,88 @@
             )
         }
 
+
         let id = 0;
         const initialNotes = [
             { id: id++, text: "Learn React", isDone: false },
             { id: id++, text: "Learn JavaScript", isDone: false },
         ];
 
-        function NoteApp() {
 
-            const [notes, setNotes] = React.useState(initialNotes);
+        function noteReducer(notes, action) {
+            switch (action.type) {
+                case "ADD_NOTE":
+                    return [...notes, { id: id++, text: action.text, isDone: false }];
+                case "CHANGE_NOTE":
+                    return notes.map(note => note.id === action.id ? { ...note, text: action.text, isDone: action.isDone } : note);
+                case "DELETE_NOTE":
+                    return notes.filter(note => note.id !== action.id);
+                default:
+                    return notes;
+            }
+        }
+
+        {/*
+        Immer Version:
+        function noteReducerWithImmer(notes, action) {
+            if (action.type === "ADD_NOTE") {
+                return produce(notes, draft => {
+                    draft.push({ id: id++, text: action.text, isDone: false });
+                });
+            }
+            if (action.type === "CHANGE_NOTE") {
+                return produce(notes, draft => {
+                    const index = draft.findIndex(note => note.id === action.id);
+                    draft[index].text = action.text;
+                    draft[index].isDone = action.isDone;
+                });
+            }
+            if (action.type === "DELETE_NOTE") {
+                return produce(notes, draft => {
+                    const index = draft.findIndex(note => note.id === action.id);
+                    draft.splice(index, 1);
+                });
+            }
+            return notes;
+        }
+        */ }
+
+        function NoteApp() {
+            {/* const [notes, setNotes] = React.useState(initialNotes); */ }
+            const [notes, dispatch] = React.useReducer(noteReducer, initialNotes);
 
             function handleAddNote(text) {
-                setNotes(prevNotes => [...prevNotes, { id: id++, text, isDone: false }]);
+                {/* setNotes(prevNotes => [...prevNotes, { id: id++, text, isDone: false }]); */ }
+
+                dispatch({ type: "ADD_NOTE", text });
             }
 
             function handleChangeNote(newNote) {
-                setNotes(prevNotes => prevNotes.map(note => note.id === newNote.id ? newNote : note));
+                {/* setNotes(prevNotes => prevNotes.map(note => note.id === newNote.id ? newNote : note)); */ }
 
                 {/*
-                immer version:
-                setNote((draft) => {
-                    const index = draft.findIndex(item => item.id === note.id);
-                    draft[index] = note;
-                });
-                */}
+                    immer version:
+                    setNote((draft) => {
+                        const index = draft.findIndex(item => item.id === note.id);
+                        draft[index] = note;
+                    });
+                    */}
+
+                dispatch({ type: "CHANGE_NOTE", ...newNote });
             }
 
             function handleDeleteNote(noteToDelete) {
-                setNotes(prevNotes => prevNotes.filter(note => note.id !== noteToDelete.id));
+                {/* setNotes(prevNotes => prevNotes.filter(note => note.id !== noteToDelete.id)); */ }
+
+                {/*
+                    Immer version:
+                    setNotes(draft => {
+                        const index = draft.findIndex(item => item.id === note.id);
+                        draft.splice(index, 1);
+                    });
+                    */}
+
+                dispatch({ type: "DELETE_NOTE", id: noteToDelete.id });
             }
 
             return (
