@@ -1,4 +1,4 @@
-import Note from "./Note";
+import NoteItem from "./NoteItem";
 
 export default function NoteList({ notes, onChange, onDelete }) {
   return (
@@ -7,7 +7,7 @@ export default function NoteList({ notes, onChange, onDelete }) {
       <ul>
         {notes.map((note) => (
           <li key={note.id}>
-            <Note note={note} onChange={onChange} onDelete={onDelete} />
+            <NoteItem note={note} onChange={onChange} onDelete={onDelete} />
           </li>
         ))}
       </ul>
