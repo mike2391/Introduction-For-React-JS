@@ -7,7 +7,7 @@ export default function NoteList({ notes, onChange, onDelete }) {
       <ul>
         {notes.map((note) => (
           <li key={note.id}>
-            <Note key={note.id} note={note} onChange={onChange} onDelete={onDelete} />
+            <Note note={note} onChange={onChange} onDelete={onDelete} />
           </li>
         ))}
       </ul>

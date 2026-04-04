@@ -1,0 +1,15 @@
+In this tutorial, we will learn about Immer. Immer is a library that helps you to work with immutable state in a more convenient way.
+In React we can't directly mutate the state, we need to duplicate the state and then change the duplicated state.
+With Immer, we can write code that looks like we are mutating the state directly.
+
+In this app i already made 2 components, "App.jsx" and "Note.jsx".
+- App.jsx is filled with simple code about how to use useImmer and how to manage the state with useImmer.
+- Note.jsx is filled with simple code about how to display the note and how to change the note.
+In this app, we will make a simple note app where you can add, edit, and delete notes.
+
+This folder will be abit different because i registered 2 html files in "vite.config.js" file, so we can have 2 different pages in our app.
+- "index.html" is the main page where it will display the "App.jsx" component.
+- "note.html" is the note page where it will display the "NoteApp.jsx" component.
+
+if you run "pnpm run dev", and if you navigate to "http://localhost:5173/" you will render file "index.html"
+and if you navigate to "http://localhost:5173/note" you will render file "note.html".
