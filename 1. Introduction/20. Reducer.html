@@ -1,9 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
     <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
@@ -11,184 +10,129 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="reducer"></div>
 
     <script type="text/babel">
+      function NoteForm({ onAddNote }) {
+        const [text, setText] = React.useState("");
 
-        function NoteForm({ onAddNote }) {
-            const [text, setText] = React.useState("");
-
-            function handleChange(e) {
-                setText(e.target.value);
-            }
-
-            function handleClick() {
-                onAddNote(text);
-                setText("");
-            }
-
-            return (
-                <>
-                    <input placeholder="Add Note" value={text} onChange={handleChange} />
-                    <button onClick={handleClick}>Add Note</button>
-                </>
-            )
+        function handleChange(e) {
+          setText(e.target.value);
         }
 
-
-        function Note({ note, onChange, onDelete }) {
-            const [isEdit, setIsEdit] = React.useState(false);
-
-            let component;
-
-            function handleChangeText(e) {
-                const newNote = { ...note, text: e.target.value };
-                onChange(newNote);
-            }
-
-            if (isEdit) {
-                component = (
-                    <>
-                        <input value={note.text} onChange={handleChangeText} />
-                        <button onClick={() => setIsEdit(false)}>Save</button>
-                    </>
-                )
-            } else {
-                component = (
-                    <>
-                        <p>{note.text}</p>
-                        <button onClick={() => setIsEdit(true)}>Edit</button>
-                    </>
-                )
-            }
-
-            function handleChangeDone(e) {
-                const newNote = { ...note, isDone: e.target.checked };
-                onChange(newNote);
-            }
-
-            return (
-                <label>
-                    <input type="checkbox" checked={note.isDone} onChange={handleChangeDone} />
-                    {component}
-                    <button onClick={() => onDelete(note)}>Delete</button>
-                </label>
-            )
+        function handleClick() {
+          onAddNote(text);
+          setText("");
         }
 
+        return (
+          <>
+            <input placeholder="Add Note" value={text} onChange={handleChange} />
+            <button onClick={handleClick}>Add Note</button>
+          </>
+        );
+      }
 
-        function NoteList({ notes, onChange, onDelete }) {
-            return (
-                <ul>
-                    {notes.map(note => (
-                        <li key={note.id} >
-                            <Note note={note} onChange={onChange} onDelete={onDelete} />
-                        </li>
-                    ))}
-                </ul>
-            )
+      function Note({ note, onChange, onDelete }) {
+        const [isEdit, setIsEdit] = React.useState(false);
+
+        let component;
+
+        function handleChangeText(e) {
+          const newNote = { ...note, text: e.target.value };
+          onChange(newNote);
         }
 
-
-        let id = 0;
-        const initialNotes = [
-            { id: id++, text: "Learn React", isDone: false },
-            { id: id++, text: "Learn JavaScript", isDone: false },
-        ];
-
-
-        function noteReducer(notes, action) {
-            switch (action.type) {
-                case "ADD_NOTE":
-                    return [...notes, { id: id++, text: action.text, isDone: false }];
-                case "CHANGE_NOTE":
-                    return notes.map(note => note.id === action.id ? { ...note, text: action.text, isDone: action.isDone } : note);
-                case "DELETE_NOTE":
-                    return notes.filter(note => note.id !== action.id);
-                default:
-                    return notes;
-            }
+        if (isEdit) {
+          component = (
+            <>
+              <input value={note.text} onChange={handleChangeText} />
+              <button onClick={() => setIsEdit(false)}>Save</button>
+            </>
+          );
+        } else {
+          component = (
+            <>
+              <p>{note.text}</p>
+              <button onClick={() => setIsEdit(true)}>Edit</button>
+            </>
+          );
         }
 
-        {/*
-        Immer Version:
-        function noteReducerWithImmer(notes, action) {
-            if (action.type === "ADD_NOTE") {
-                return produce(notes, draft => {
-                    draft.push({ id: id++, text: action.text, isDone: false });
-                });
-            }
-            if (action.type === "CHANGE_NOTE") {
-                return produce(notes, draft => {
-                    const index = draft.findIndex(note => note.id === action.id);
-                    draft[index].text = action.text;
-                    draft[index].isDone = action.isDone;
-                });
-            }
-            if (action.type === "DELETE_NOTE") {
-                return produce(notes, draft => {
-                    const index = draft.findIndex(note => note.id === action.id);
-                    draft.splice(index, 1);
-                });
-            }
+        function handleChangeDone(e) {
+          const newNote = { ...note, isDone: e.target.checked };
+          onChange(newNote);
+        }
+
+        return (
+          <label>
+            <input type="checkbox" checked={note.isDone} onChange={handleChangeDone} />
+            {component}
+            <button onClick={() => onDelete(note)}>Delete</button>
+          </label>
+        );
+      }
+
+      function NoteList({ notes, onChange, onDelete }) {
+        return (
+          <ul>
+            {notes.map((note) => (
+              <li key={note.id}>
+                <Note note={note} onChange={onChange} onDelete={onDelete} />
+              </li>
+            ))}
+          </ul>
+        );
+      }
+
+      let id = 0;
+      const initialNotes = [
+        { id: id++, text: "Learn React", isDone: false },
+        { id: id++, text: "Learn JavaScript", isDone: false },
+      ];
+
+      function noteReducer(notes, action) {
+        switch (action.type) {
+          case "ADD_NOTE":
+            return [...notes, { id: id++, text: action.text, isDone: false }];
+          case "CHANGE_NOTE":
+            return notes.map((note) => (note.id === action.id ? { ...note, text: action.text, isDone: action.isDone } : note));
+          case "DELETE_NOTE":
+            return notes.filter((note) => note.id !== action.id);
+          default:
             return notes;
         }
-        */ }
+      }
 
-        function NoteApp() {
-            {/* const [notes, setNotes] = React.useState(initialNotes); */ }
-            const [notes, dispatch] = React.useReducer(noteReducer, initialNotes);
+      function NoteApp() {
+        const [notes, dispatch] = React.useReducer(noteReducer, initialNotes);
 
-            function handleAddNote(text) {
-                {/* setNotes(prevNotes => [...prevNotes, { id: id++, text, isDone: false }]); */ }
-
-                dispatch({ type: "ADD_NOTE", text });
-            }
-
-            function handleChangeNote(newNote) {
-                {/* setNotes(prevNotes => prevNotes.map(note => note.id === newNote.id ? newNote : note)); */ }
-
-                {/*
-                    immer version:
-                    setNote((draft) => {
-                        const index = draft.findIndex(item => item.id === note.id);
-                        draft[index] = note;
-                    });
-                */}
-
-                dispatch({ type: "CHANGE_NOTE", ...newNote });
-            }
-
-            function handleDeleteNote(noteToDelete) {
-                {/* setNotes(prevNotes => prevNotes.filter(note => note.id !== noteToDelete.id)); */ }
-
-                {/*
-                    Immer version:
-                    setNotes(draft => {
-                        const index = draft.findIndex(item => item.id === note.id);
-                        draft.splice(index, 1);
-                    });
-                    */}
-
-                dispatch({ type: "DELETE_NOTE", id: noteToDelete.id });
-            }
-
-            return (
-                <>
-                    <h1>Note App</h1>
-                    <NoteForm onAddNote={handleAddNote} />
-                    <NoteList notes={notes} onChange={handleChangeNote} onDelete={handleDeleteNote} />
-                </>
-            )
+        function handleAddNote(text) {
+          dispatch({ type: "ADD_NOTE", text });
         }
 
-        ReactDOM.createRoot(document.getElementById('reducer')).render(
-            <NoteApp />
-        );
-    </script>
-</body>
+        function handleChangeNote(newNote) {
+          dispatch({ type: "CHANGE_NOTE", ...newNote });
+        }
 
+        function handleDeleteNote(noteToDelete) {
+          dispatch({ type: "DELETE_NOTE", id: noteToDelete.id });
+        }
+
+        return (
+          <>
+            <h1>Note App</h1>
+            <NoteForm onAddNote={handleAddNote} />
+            <NoteList notes={notes} onChange={handleChangeNote} onDelete={handleDeleteNote} />
+          </>
+        );
+      }
+
+      // For More Example, checkout 2. Build React in Vite/6. Reducer
+      ReactDOM.createRoot(document.getElementById("reducer")).render(<NoteApp />);
+    </script>
+  </body>
 </html>
