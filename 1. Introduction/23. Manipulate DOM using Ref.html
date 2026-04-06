@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="manipulate"></div>
+
+    <script type="text/babel">
+        function GuestBook() {
+            const [name, setName] = React.useState('');
+            const [message, setMessage] = React.useState('');
+
+            const nameInput = React.useRef(null);
+
+            function handleSubmit() {
+                setName('');
+                nameInput.current.focus();
+
+                alert(`Name: ${name}, Message: ${message}`);
+            }
+
+            return (
+                <>
+                    <h1>Guest Book</h1>
+                    <label htmlFor="name">Name</label>
+                    <br />
+                    <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+                    <br />
+                    <label htmlFor="message">Message</label>
+                    <br />
+                    <textarea type="text" name="name" value={message} onChange={(e) => setMessage(e.target.value)} />
+                    <br />
+                    <button onClick={handleSubmit}>Submit</button>
+                </>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById('manipulate')).render(<GuestBook />);
+    </script>
+</body>
+
+</html>
