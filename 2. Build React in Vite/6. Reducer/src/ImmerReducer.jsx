@@ -2,7 +2,6 @@
 import NoteList from "./components/NoteList";
 import NoteForm from "./components/NoteForm";
 import { useImmerReducer } from "use-immer";
-// import { useReducer } from "react";
 
 let id = 0;
 
@@ -10,24 +9,6 @@ const initialNotes = [
   { id: id++, text: "Learn React", isEdit: false },
   { id: id++, text: "Learn JavaScript", isEdit: false },
 ];
-
-// function noteReducer(notes, action) {
-//   switch (action.type) {
-//     case "ADD_NOTE":
-//       return [...notes, { id: id++, text: action.text, isDone: false }];
-//     case "CHANGE_NOTE":
-//       return notes.map((note) => {
-//         if (note.id === action.id) {
-//           return { ...note, text: action.text, isDone: action.isDone };
-//         }
-//         return note;
-//       });
-//     case "DELETE_NOTE":
-//       return notes.filter((note) => note.id !== action.id);
-//     default:
-//       return notes;
-//   }
-// }
 
 function noteReducerWithImmer(notes, action) {
   const index = notes.findIndex((note) => note.id === action.id);
@@ -48,12 +29,7 @@ function noteReducerWithImmer(notes, action) {
   }
 }
 
-export default function NoteApp() {
-  // function noteReducer(state, action) {}
-
-  // you can use different name "dispatch" if you want, but best practice is use "dispatch"
-  // const [notes, dispatch] = useReducer(noteReducer, initialNotes);
-
+export default function NoteAppImmerReducer({ name }) {
   const [notes, dispatch] = useImmerReducer(noteReducerWithImmer, initialNotes);
 
   function handleAddNote(text) {
@@ -70,7 +46,7 @@ export default function NoteApp() {
 
   return (
     <>
-      <NoteForm onAddNote={handleAddNote} />
+      <NoteForm onAddNote={handleAddNote} name={name} />
       <NoteList notes={notes} onChange={handleChangeNote} onDelete={handleDeleteNote} />
     </>
   );
