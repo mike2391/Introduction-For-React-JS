@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pure and Impure Component</title>
 
     <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -15,18 +15,26 @@
 
 <body>
     <div id="notPureFunction"></div>
-    <div id="pureFunction"></div>
 
     <script type="text/babel">
         const root1 = ReactDOM.createRoot(document.getElementById('notPureFunction'));
-        const root2 = ReactDOM.createRoot(document.getElementById('pureFunction'));
 
-        // This is an example of an impure function that produces impure components.
-        // This impure function will produce different results when it is called multiple times
-        // This will make your component produce inconsistent and unpredictable results
+        // In React, a component should behave like a pure function.
+        // A pure component always returns the same output
+        // when it receives the same props.
+        //
+        // It should NOT modify variables outside the component,
+        // because that can create unpredictable UI behavior.
+        //
+        // In this example, NotPureComponent changes a global variable (count),
+        // so its output depends on something outside its props.
+        //
+        // Meanwhile, PureComponent only uses props (id and text),
+        // so it always produces predictable results.
+
         let count = 1;
         function NotPureComponent({ text }) {
-            count++;
+            count++;  // modifying external variable → impure
 
             return (
                 <tr>
@@ -46,6 +54,8 @@
         }
 
         function Container() {
+            const [refresh, setRefresh] = React.useState(false);
+
             return (
                 <>
                     <h1>Not Pure Component</h1>
@@ -67,6 +77,23 @@
                             <PureComponent id={3} text='three' />
                         </tbody>
                     </table>
+
+                    <br />
+
+                    <button onClick={() => setRefresh(!refresh)}>
+                        Re-render
+                    </button>
+
+                    <br />
+
+                    <p>
+                        When the button is clicked, React re-renders the Container component.
+                        The numbers in the "Not Pure Component" table change because the component
+                        modifies a global variable (count) every time it renders.
+                        This makes the output depend on something outside its props.
+                        Meanwhile, the "Pure Component" table does not change because it only uses props,
+                        so it always produces the same result on every render.
+                    </p>
                 </>
             )
         }
