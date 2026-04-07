@@ -15,6 +15,7 @@
 
 <body>
     <div id="manipulate"></div>
+    <div id="domError"></div>
 
     <script type="text/babel">
         function GuestBook() {
@@ -25,6 +26,7 @@
 
             function handleSubmit() {
                 setName('');
+                setMessage('');
                 nameInput.current.focus();
 
                 alert(`Name: ${name}, Message: ${message}`);
@@ -35,7 +37,7 @@
                     <h1>Guest Book</h1>
                     <label htmlFor="name">Name</label>
                     <br />
-                    <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+                    <input ref={nameInput} type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />\
                     <br />
                     <label htmlFor="message">Message</label>
                     <br />
@@ -46,7 +48,71 @@
             )
         }
 
+        // In React, we normally do not access DOM elements directly.
+        // React usually updates the UI through state changes.
+        // However, in some cases like focusing an "input" element after submit,
+        // we need direct access to the actual DOM element.
+        //
+        // For this purpose, we use the useRef Hook.
+        // First, we create a ref and attach it to the "input" element attribute.
+        // Then we can access the element using [ref variable name].current
+        // and call focus() to move the cursor back to the input field.
+
         ReactDOM.createRoot(document.getElementById('manipulate')).render(<GuestBook />);
+    </script>
+
+    <script type="text/babel">
+        function GuestBookForm({ name, setName }) {
+            return (
+                <>
+                    <label htmlFor="name">Name</label>
+                    <br />
+                    <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+                </>
+            )
+        }
+
+        function GuestBook() {
+            const [name, setName] = React.useState('');
+            const [message, setMessage] = React.useState('');
+
+            const nameInput = React.useRef(null);
+
+            function handleSubmit() {
+                setName('');
+                setMessage('');
+                nameInput.current.focus();
+
+                alert(`Name: ${name}, Message: ${message}`);
+            }
+
+            return (
+                <>
+                    <h1>Guest Book</h1>
+                    <GuestBookForm ref={nameInput} name={name} setName={setName} />
+                    <br />
+                    <label htmlFor="message">Message</label>
+                    <br />
+                    <textarea type="text" name="name" value={message} onChange={(e) => setMessage(e.target.value)} />
+                    <br />
+                    <button onClick={handleSubmit}>Submit</button>
+                </>
+            )
+        }
+
+        // You can use Ref only in DOM Element, not in Component
+        // If you want to use Ref in Component, you need to pass the ref as a prop
+
+        // ...
+        // <GuestBookForm ref={nameInput} name={name} setName={setName} />
+        // ...
+
+        // function GuestBookForm({ name, setName }) {
+        // ...
+        //<input ref={ref} type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+        // ... 
+
+        ReactDOM.createRoot(document.getElementById('domError')).render(<GuestBook />);
     </script>
 </body>
 
