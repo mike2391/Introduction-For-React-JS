@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Hook</title>
+
+    <!-- Just this 3 links if you wanna run react JS ⚛️ locally -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="custom"></div>
+
+    <script type="text/babel">
+        // In React you can make your own custom hooks
+        // *For me it's like you make your own function (hook) which contain built-in hooks 🤣
+        // You can use any name for your custom hook, but it's good to follow this best practice:
+        // 1. Use "use" prefix -> useOnline, useRun, useFly, etc
+        // 2. Only use "use" prefix when your custom hook is using built-in hooks
+        // 3. It's okay for you to not use "use" prefix when your custom hook is not using built-in hooks (ex: getColor(), getRandomNumber(), etc)
+
+        function useOnline() {
+            const [isOnline, setIsOnline] = React.useState(window.navigator.onLine)
+
+            React.useEffect(() => {
+                window.addEventListener('online', () => setIsOnline(true))
+                window.addEventListener('offline', () => setIsOnline(false))
+
+                return () => {
+                    window.removeEventListener('online', () => setIsOnline(true))
+                    window.removeEventListener('offline', () => setIsOnline(false))
+                }
+            }, [])
+
+            return isOnline
+        }
+
+        function Online() {
+            const isOnline = useOnline()
+            return (
+                <h1>
+                    {isOnline ? 'Online' : 'Offline'}
+                </h1>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById('custom')).render(<Online />);
+    </script>
+</body>
+
+</html>
