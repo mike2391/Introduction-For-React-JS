@@ -49,14 +49,13 @@ export default function ProductList() {
 
   return (
     <>
-      <h1>Product List</h1>
+      <h1>Product Lissst</h1>
       {products.map((product) => (
         <Product key={product.id} product={product} />
       ))}
     </>
   );
 }
-
 
 // DON'T WRITE useEffect LIKE THIS.
 //

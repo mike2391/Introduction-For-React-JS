@@ -1,0 +1,19 @@
+1. useEffect() is used to handle side effects in React.
+
+2. Side effects are interactions with external systems such as:
+   - fetching data from a server
+   - accessing browser APIs
+   - working with non-React components
+   - event listeners, timers, or subscriptions
+
+3. If your component does NOT interact with an external system, you usually do NOT need useEffect().
+
+4. Avoid using useEffect() for application initialization. This is because useEffect() runs AFTER render
+   and may run multiple times during re-render.
+
+5. Be careful when modifying server data inside useEffect(). Since effects can run multiple times, this may cause
+   unintended repeated updates to the server.
+
+6.Instead, use event handlers (like button clicks) when updating server data so execution is predictable.
+
+7. Minimizing the use of useEffect() makes code easier to read, faster to execute, and less likely to cause bugs.
